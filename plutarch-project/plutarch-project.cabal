@@ -21,6 +21,13 @@ maintainer:         github.com/keyan-m
 -- category:
 extra-source-files: CHANGELOG.md
 
+flag testnet
+  description:
+    If testnet is True, some checks are enabled. Disable checks to create optimized scripts.
+
+  default:     False
+  manual:      True
+
 common lang
   ghc-options:
     -Werror -Wall -Weverything -Wcompat -Wincomplete-uni-patterns
@@ -183,12 +190,15 @@ library
     ViewPatterns
 
   exposed-modules:
+    Compilation
     Utils
+    Validator
 
   -- Compile
 
   build-depends:
     , aeson
+    , aeson-pretty
     , base
     , base16-bytestring
     , bytestring
@@ -205,6 +215,12 @@ library
     , text
 
   hs-source-dirs:     src
+
+  if flag(testnet)
+    hs-source-dirs: src-testnet
+
+  else
+    hs-source-dirs: src-mainnet
 
 common dependencies
   build-depends:
@@ -235,7 +251,10 @@ executable plutarch-project
 
   -- LANGUAGE extensions used by modules in this package.
   -- other-extensions:
-  build-depends:  plutarch-project
+  build-depends:
+    , ansi-terminal
+    , plutarch-project
+
   hs-source-dirs: app
 
 test-suite helpers-tests
@@ -243,9 +262,7 @@ test-suite helpers-tests
   type:             exitcode-stdio-1.0
   main-is:          Test.hs
   hs-source-dirs:   src src/Testing
-  other-modules:
-    Utils
-
+  other-modules:    Utils
   build-depends:
     , cardano-crypto-class
     , prettyprinter
