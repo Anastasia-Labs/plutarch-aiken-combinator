@@ -2,7 +2,7 @@ module Main (main) where
 
 import           System.Console.ANSI (Color (..), ColorIntensity (..),
                                       ConsoleLayer (..), SGR (..), setSGR)
-import           Utils               (writePlutusScript)
+import           Utils               (writeScriptHashAsAikenConstant)
 import           Validator           (pvalidator)
 
 main :: IO ()
@@ -11,7 +11,7 @@ main = do
   putStrLn "Exporting Plutarch scripts..."
   setSGR [Reset]
 
-  writePlutusScript "Smart Handle Router" "../aiken-project/env/test.json" pvalidator
+  writeScriptHashAsAikenConstant "test_script_hash" "../aiken-project/env/test.ak" pvalidator
   putStrLn "Exported smart handle router validator"
 
   setSGR [SetColor Foreground Vivid Green]
