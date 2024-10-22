@@ -1,4 +1,4 @@
-module Utils (writePlutusScript, writeScriptHashAsAikenConstant) where
+module Utils (evalT, writePlutusScript, writeScriptHashAsAikenConstant) where
 
 import           Data.Aeson                 (KeyValue ((.=)), object)
 import           Data.Aeson.Encode.Pretty   (encodePretty)
@@ -65,5 +65,10 @@ writeScriptHashAsAikenConstant constantName filepath term =
       LBS.writeFile filepath
         $ LBS.fromStrict
         $ Text.encodeUtf8
-        $ "const " <> constantName <> ": ByteArray = #\"" <> content <> "\""
+        $    "use cardano/address.{Credential, Script}"
+          <> "\n"
+          <> "\n"
+          <> "pub const " <> constantName <> ": Credential ="
+          <> "\n"
+          <> "  Script(#\"" <> content <> "\")"
     Left e -> print e

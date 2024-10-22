@@ -13,6 +13,8 @@ dist-newstyle
 # Plutus
 
 *.plutus
+compiled-mainnet
+compiled-testnet
 
 # VSCode
 

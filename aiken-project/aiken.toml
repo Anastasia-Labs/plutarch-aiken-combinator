@@ -1,9 +1,9 @@
 name = "anastasia-labs/aiken-project"
-version = "0.0.0"
+version = "0.0.1"
 compiler = "v1.1.4"
 plutus = "v3"
 license = "Apache-2.0"
-description = "Aiken contracts for project 'anastasia-labs/aiken-project'"
+description = "Aiken project that depends on the Plutarch project"
 
 [repository]
 user = "anastasia-labs"

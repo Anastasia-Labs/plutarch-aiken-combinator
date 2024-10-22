@@ -191,6 +191,7 @@ library
 
   exposed-modules:
     Compilation
+    Constants
     Utils
     Validator
 
